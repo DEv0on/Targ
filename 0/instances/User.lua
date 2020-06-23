@@ -31,7 +31,7 @@ function User:new(username, expireTime, assortment, wallet)
 end
 
 function User:save()
-    --ToDo: Test a save function
+    --ToDo: rework a save function
     local userInfo = {username = self.username, expireTime = self.expireTime}
     local w1 = FileUtil.writeToFile("/data/users/"..self.username.."/info.json", JSON.encode(userInfo))
     local w2 = FileUtil.writeToFile("/data/users/"..self.username.."/wallet.json", JSON.encode({wallet = self.wallet}))
@@ -85,3 +85,5 @@ function User:setAssortment(assortment)
     end
     self.assortment = assortment
 end
+
+return User

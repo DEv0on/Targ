@@ -28,65 +28,65 @@ function ItemAssortment:new(id, seller, item, qty, price, discount, currency, so
     --ToDo: set date
 end
 
-function getID()
+function ItemAssortment:getID()
     return self.id
 end
 
-function getSeller()
+function ItemAssortment:getSeller()
     return self.seller
 end
 
-function getItem()
+function ItemAssortment:getItem()
     return self.item
 end
 
-function getQuantity()
+function ItemAssortment:getQuantity()
     return self.qty
 end
 
-function getBasePrice()
+function ItemAssortment:getBasePrice()
     return self.price
 end
 
-function getPrice()
+function ItemAssortment:getPrice()
     return self.price * self.priceDiscount
 end
 
-function getDiscount()
+function ItemAssortment:getDiscount()
     return self.discount
 end
 
-function getCurrency()
+function ItemAssortment:getCurrency()
     return self.currency
 end
 
-function getSoldQuantity()
+function ItemAssortment:getSoldQuantity()
     return self.soldQuantity
 end
 
-function setItem(item)
+function ItemAssortment:setItem(item)
     self.item = item
     return true
 end
 
-function setQuantity(qty)
+function ItemAssortment:setQuantity(qty)
     self.qty = qty
     return true
 end
 
-function setPrice(price)
+function ItemAssortment:setPrice(price)
     self.price = price
     return true
 end
 
-function setDiscount(discount)
+function ItemAssortment:setDiscount(discount)
     self.discount = discount
     return true
 end
 
 --tak
 
-function increaseSoldQty(qty)
+function ItemAssortment:increaseSoldQty(qty)
     local newQty = self.soldQuantity+qty
     self.soldQuantity = newQty
     return true
