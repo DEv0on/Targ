@@ -55,4 +55,11 @@ function Item:setQuantity(qty)
     return true
 end
 
+function Item:equals(item)
+    if self.id == item.id and self.dmg == item.dmg and self.nbt_hash == item.nbt_hash then
+        return true
+    end
+    return false
+end
+
 return Item
