@@ -11,7 +11,7 @@ Item     = dofile("/instances/Item.lua")
 
 BuyUtils = {}
 
-local status, settings = pcall(JSON.decode(FileUtil.readAll("/.shopsettings")))
+local status, settings = pcall(function () return JSON.decode(FileUtil.readAll("/.shopsettings")) end)
 
 --PIM EDITION
 function BuyUtils.buy(assortmentItem)
@@ -30,10 +30,11 @@ function BuyUtils.buy(assortmentItem)
     if AE2 == nil or AE2.getStoredPower() < 1000 then
         return false, "Nie znaleziono AE2"
     end
-    local itemFingerprint = AE2Utils.getFingerprint(assortmentItem.item.id, assortmentItem.item.dmg, assortmentItem.item.nbt_hash)
+
+    local itemFingerprint = AE2Utils.getFingerprint(assortmentItem:getItem():getID(), assortmentItem:getItem():getDmg(), assortmentItem:getItem():getNBT())
     local itemQtyAE2 = AE2Utils.getItemQty(itemFingerprint, AE2)
 
-    if itemQtyAE2 < assortmentItem.item.qty then
+    if itemQtyAE2 < assortmentItem:getQuantity() then
         return false, "Brak w asortymencie!"
     end
 
@@ -42,9 +43,9 @@ function BuyUtils.buy(assortmentItem)
     for i=1,36 do
         item = pim.getStackInSlot(i)
         if item ~= nil then
-            if assortmentItem.currency:equals(Item:new(item.id, item.dmg, item.nbt_hash, item.qty)) and item.qty >= assortmentItem.price then
+            if assortmentItem:getCurrency():equals(Item:new(item.id, item.dmg, item.nbt_hash, item.qty)) and item.qty >= assortmentItem:getPrice() then
                 currencyFound = true
-                pim.pushItem(settings.pimToInterfaceDir, i)
+                pim.pushItem(settings.pimToInterfaceDir, i, assortmentItem:getPrice())
                 break
             end
         end
@@ -60,3 +61,5 @@ function BuyUtils.buy(assortmentItem)
     AE2.exportItem(itemFingerprint, settings.interfaceToPimDir, assortmentItem.qty%64)
     return true, "OK"
 end
+
+return BuyUtils

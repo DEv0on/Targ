@@ -6,15 +6,15 @@
 
 AE2Utils = {}
 
-function AE2Utils:getFingerprint(id,dmg,nbt)
+function AE2Utils.getFingerprint(id,dmg,nbt)
     if nbt == "" then
-        return {id= id, dmg= tonumber(dmg)}
+        return {id= tostring(id), dmg= tonumber(dmg)}
     else
-        return {id = id, dmg = tonumber(dmg), nbt_hash = nbt}
+        return {id = tostring(id), dmg = tonumber(dmg), nbt_hash = tostring(nbt)}
     end
 end
 
-function AE2Utils:getItemQty(fingerprint,AE2)
+function AE2Utils.getItemQty(fingerprint,AE2)
     itemList = AE2.getAvailableItems()
     for k,v in pairs(itemList) do
         if v.fingerprint.id == fingerprint.id and v.fingerprint.dmg == fingerprint.dmg and v.fingerprint.nbt_hash == fingerprint.nbt_hash then

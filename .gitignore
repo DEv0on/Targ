@@ -3,3 +3,12 @@
 /.idea/
 *.iml
 last*.txt
+/.history/
+/.vscode/
+*.json
+*.jar
+*.bat
+/assets/
+/plugins/
+test*.lua
+/3/

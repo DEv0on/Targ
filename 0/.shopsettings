@@ -1,5 +1,5 @@
 {
-  "interfaceToPimID": "tileinterface_5",
+  "interfaceToPimID": "right",
   "interfaceToPimDir": "north",
   "pimToInterfaceDir": "south"
 }

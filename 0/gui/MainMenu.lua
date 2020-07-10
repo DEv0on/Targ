@@ -7,8 +7,11 @@
 MainMenu = {options = {}, lowerOptions = {} }
 
 function MainMenu:new(options, lowerOptions)
-    self.options = options
-    self.lowerOptions = lowerOptions
-    return self
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
+    o.options = options
+    o.lowerOptions = lowerOptions
+    return o
 end
 

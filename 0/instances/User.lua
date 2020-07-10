@@ -3,6 +3,7 @@
 -- Date: 21.05.2020
 -- Time: 01:06
 --
+
 FileUtil    = dofile("/utils/FileUtil.lua")
 JSON        = dofile("/utils/JSON.lua")
 
@@ -10,6 +11,9 @@ JSON        = dofile("/utils/JSON.lua")
 User = {username = "", expireTime = 0, assortment = {}, wallet = {}}
 
 function User:new(username, expireTime, assortment, wallet)
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
     if type(username) ~= "string" then
         error("username is not a valid string")
     end
@@ -23,11 +27,11 @@ function User:new(username, expireTime, assortment, wallet)
         error("wallet is not a valid table")
     end
 
-    self.username = username
-    self.expireTime = expireTime
-    self.assortment = assortment
-    self.wallet = wallet
-    return self
+    o.username = username
+    o.expireTime = expireTime
+    o.assortment = assortment
+    o.wallet = wallet
+    return o
 end
 
 function User:save()

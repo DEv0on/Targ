@@ -109,7 +109,7 @@ encode = function(val, stack)
     if f then
         return f(val, stack)
     end
-    error("unexpected type '" .. t .. "'")
+    return nil
 end
 
 

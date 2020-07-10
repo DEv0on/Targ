@@ -6,9 +6,12 @@
 
 ItemList = {items = {}}
 
-function ItemList:new (items)
-    self.items = items
-    return self
+function ItemList:new(items)
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
+    o.items = items
+    return o
 end
 
 
@@ -21,11 +24,7 @@ function ItemList:setItems(items)
     self.items = items
 end
 
-function ItemList:draw()
-
-end
-
-function ItemList:execute()
+function ItemList:update()
 
 end
 

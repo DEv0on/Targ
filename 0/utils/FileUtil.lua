@@ -7,7 +7,7 @@ local FileUtil = {}
 
 function FileUtil.readAll(file)
     local f = assert(io.open(file,"r"))
-    local content = f:read()
+    local content = f:read("*a")
     f:close()
     return content
 end

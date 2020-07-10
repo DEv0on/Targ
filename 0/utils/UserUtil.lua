@@ -10,7 +10,6 @@ User        = dofile("/instances/User.lua")
 
 local UserUtil = {}
 
---ToDo: Test a getUserByUsername function
 function UserUtil.getUserByUsername(username)
     local userList = fs.list("/data/users/")
     for key,username1 in pairs(userList) do
@@ -26,9 +25,17 @@ end
 
 --ToDo: updateWallet function
 function UserUtil.updateWallet(user, item)
-    local wallet = user:getWallet()
+    local wallet = user.wallet
 
+    for k, v in pairs(wallet) do
+        if v.equals(item) then
+            v.qty = v.qty + item.qty
+            return true
+        end
+    end
+    
+    table.insert(wallet, item)
+    return true
 end
 
 return UserUtil
-

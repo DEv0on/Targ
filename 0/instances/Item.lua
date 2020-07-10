@@ -12,11 +12,14 @@ local Item = {
 }
 
 function Item:new(id, dmg, nbt, qty)
-    self.id = id
-    self.dmg = dmg
-    self.nbt_hash = nbt
-    self.qty = qty
-    return self
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
+    o.id = id
+    o.dmg = dmg
+    o.nbt_hash = nbt
+    o.qty = qty
+    return o
 end
 
 function Item:getID()
@@ -56,7 +59,7 @@ function Item:setQuantity(qty)
 end
 
 function Item:equals(item)
-    if self.id == item.id and self.dmg == item.dmg and self.nbt_hash == item.nbt_hash then
+    if self:getID() == item:getID() and self:getDmg() == item:getDmg() and (self:getNBT() == item:getNBT() or self:getNBT() == nil or self:getNBT() == "") then
         return true
     end
     return false

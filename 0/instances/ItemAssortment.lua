@@ -17,15 +17,19 @@ local ItemAssortment = {
 }
 
 function ItemAssortment:new(id, seller, item, qty, price, discount, currency, soldQuantity)
-    self.id = id
-    self.seller = seller
-    self.item = item
-    self.qty = qty
-    self.price = price
-    self.currency = currency
-    self.discount = discount
-    self.soldQuantity = soldQuantity
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
+    o.id = id
+    o.seller = seller
+    o.item = item
+    o.qty = qty
+    o.price = price
+    o.currency = currency
+    o.discount = discount
+    o.soldQuantity = soldQuantity
     --ToDo: set date
+    return o
 end
 
 function ItemAssortment:getID()
@@ -49,7 +53,7 @@ function ItemAssortment:getBasePrice()
 end
 
 function ItemAssortment:getPrice()
-    return self.price * self.priceDiscount
+    return self.price * self.discount
 end
 
 function ItemAssortment:getDiscount()

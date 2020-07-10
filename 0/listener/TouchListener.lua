@@ -9,7 +9,10 @@ local TouchListener = {
 }
 
 function TouchListener:createListener()
-    return self
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
+    return o
 end
 
 function TouchListener:addKeyEvent(place, event)

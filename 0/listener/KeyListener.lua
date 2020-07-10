@@ -9,7 +9,10 @@ local KeyListener = {
 }
 
 function KeyListener:createListener()
-    return self
+    o = {}
+    setmetatable(o, self)
+    self.__index = self
+    return o
 end
 
 function KeyListener:addKeyEvent(key, event)
