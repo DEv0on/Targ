@@ -11,16 +11,28 @@ local Item = {
     qty = 0
 }
 
-function Item:new(id, dmg, nbt, qty)
-    o = {}
+function Item:newByTable(tab)
+    local o = {}
+    setmetatable(o, self)
+    self.__index = self
+    o.id = tab.id
+    o.dmg = tab.dmg
+    o.nbt_hash = tab.nbt_hash
+    o.qty = tab.qty
+    return o
+end
+
+function Item:new(id, dmg, nbt_hash, qty)
+    local o = {}
     setmetatable(o, self)
     self.__index = self
     o.id = id
     o.dmg = dmg
-    o.nbt_hash = nbt
+    o.nbt_hash = nbt_hash
     o.qty = qty
     return o
 end
+
 
 function Item:getID()
     return self.id

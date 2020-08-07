@@ -13,7 +13,7 @@ function FileUtil.readAll(file)
 end
 
 function FileUtil.writeToFile(file, data)
-    local f = io.open(file, "wb")
+    local f = io.open(file, "w")
     local function writeData()
         f:write(data)
     end

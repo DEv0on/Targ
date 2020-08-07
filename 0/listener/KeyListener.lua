@@ -21,7 +21,7 @@ function KeyListener:addKeyEvent(key, event)
 end
 
 function KeyListener:listenForKey(once)
-    function wait()
+    local function wait()
         while true do
             ev, key = coroutine.yield("key")
             for k,v in pairs(self.keys) do

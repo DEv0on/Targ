@@ -4,6 +4,8 @@
 -- Time: 01:50
 --
 
+Item = dofile("/instances/Item.lua")
+
 local ItemAssortment = {
     id = 0,
     seller = "",
@@ -16,8 +18,27 @@ local ItemAssortment = {
     date = 0
 }
 
+function ItemAssortment:newByTable(tab)
+    if type(tab) ~= "table" then
+        error("Not a table")
+    end
+    local o = {}
+    setmetatable(o, self)
+    self.__index = self
+    o.id = tab.id
+    o.seller = tab.seller
+    o.item = Item:newByTable(tab.item)
+    o.qty = tab.qty
+    o.price = tab.price
+    o.currency = Item:newByTable(tab.currency)
+    o.discount = tab.discount
+    o.soldQuantity = tab.soldQuantity
+    --ToDo: set date
+    return o
+end
+
 function ItemAssortment:new(id, seller, item, qty, price, discount, currency, soldQuantity)
-    o = {}
+    local o = {}
     setmetatable(o, self)
     self.__index = self
     o.id = id
@@ -31,6 +52,7 @@ function ItemAssortment:new(id, seller, item, qty, price, discount, currency, so
     --ToDo: set date
     return o
 end
+
 
 function ItemAssortment:getID()
     return self.id

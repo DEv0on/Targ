@@ -33,9 +33,40 @@ function UserUtil.updateWallet(user, item)
             return true
         end
     end
-    
+
     table.insert(wallet, item)
     return true
+end
+
+function updateAssortmentItem(user, itemAssortment)
+    local userAssortment = user:getAssortment()
+    local i = 1
+    for k,v in pairs(userAssortment) do
+        if v:getID() == itemAssortment:getID() then
+            userAssortment[i] = itemAssortment
+        end
+        i = i + 1
+    end
+end
+
+function UserUtil.updateRefunds(user, item, buyer)
+
+    local refunds = JSON.decode(FileUtil.readAll("/data/other/refunds.json"))
+
+    local i = 1
+    for k,v in pairs(refunds) do
+        print(v.username)
+        print(user:getUsername())
+        if v.username == user:getUsername() then
+            --ToDo: getting time
+            refunds[i] = {data = {time=30, itemBought=JSON.encode(item)}, username = buyer}
+            return FileUtil.writeToFile("/data/other/refunds.json", JSON.encode(refunds))
+        end
+        i = i + 1
+    end
+    table.insert(refunds, {data = {time=30, itemBought=JSON.encode(item)}, username = buyer})
+    print(JSON.encode(refunds))
+    return FileUtil.writeToFile("/data/other/refunds.json", JSON.encode(refunds))
 end
 
 return UserUtil
