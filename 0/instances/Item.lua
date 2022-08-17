@@ -8,7 +8,8 @@ local Item = {
     id = "",
     dmg = 0,
     nbt_hash = "",
-    qty = 0
+    qty = 0,
+    item = true
 }
 
 function Item:newByTable(tab)

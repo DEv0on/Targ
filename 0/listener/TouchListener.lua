@@ -5,7 +5,7 @@
 --
 
 local TouchListener = {
-    touchPlaces = {}
+    touchPos = {}
 }
 
 function TouchListener:createListener()
@@ -16,7 +16,7 @@ function TouchListener:createListener()
 end
 
 function TouchListener:addKeyEvent(place, event)
-    table.insert(self.touchPlaces, {touch = place, event = event})
+    table.insert(self.touchPos, {touch = place, event = event})
     return self
 end
 
@@ -25,10 +25,11 @@ function TouchListener:listenForTouch(once)
         function()
             while true do
                 ev, button, x, y = coroutine.yield("mouse_click")
-                for k,v in pairs(self.touchPlaces) do
+                if x == nil or y == nil then return false end
+                for k,v in pairs(self.touchPos) do
                     if x >= v.touch.x1 and y >= v.touch.y1 and x <= v.touch.x2 and y <= v.touch.y2 then
                         local status, ret = pcall(v.event)
-                        if once or not status or ret == "zajeb kopa" then return true end
+                        if once or not status or ret == false then return true end
                     end
                 end
             end

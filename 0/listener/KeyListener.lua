@@ -27,7 +27,7 @@ function KeyListener:listenForKey(once)
             for k,v in pairs(self.keys) do
                 if tonumber(k) == key then
                     local status, ret = pcall(v)
-                    if once or not status or ret == "zajeb kopa" then return true end
+                    if once or not status or ret == false then return true end
                 end
             end
         end

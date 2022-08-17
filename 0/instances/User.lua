@@ -13,7 +13,7 @@ User = {username = "", expireTime = 0, assortment = {}, wallet = {}}
 function User:new(username, expireTime, assortment, wallet)
     o = {}
     setmetatable(o, self)
-    self.__index = self
+    self.__index = self q   
     if type(username) ~= "string" then
         error("username is not a valid string")
     end

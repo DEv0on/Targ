@@ -14,14 +14,20 @@ function ItemList:new(items)
     return o
 end
 
-
-
 function ItemList:getItems()
     return self.items
 end
 
 function ItemList:setItems(items)
     self.items = items
+end
+
+function ItemList:addItem(item)
+    if item.item ~= true then
+        error("Object is not an Item instance!")
+    end
+    
+    table.insert(self.items, item)
 end
 
 function ItemList:update()
@@ -32,3 +38,4 @@ function ItemList:run()
 
 end
 
+return ItemList
